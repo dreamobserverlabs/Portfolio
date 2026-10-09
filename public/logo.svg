@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <clipPath id="circle-clip">
+      <circle cx="250" cy="250" r="240" />
+    </clipPath>
+  </defs>
+  
+  <!-- Outer circle background -->
+  <g clip-path="url(#circle-clip)">
+    <!-- Deep night sky -->
+    <rect width="500" height="500" fill="#143755" />
+    
+    <!-- Stars -->
+    <!-- Small dots -->
+    <circle cx="125" cy="100" r="5" fill="#E5A00D" />
+    <circle cx="240" cy="52" r="4.5" fill="#E5A00D" />
+    <circle cx="316" cy="172" r="6.5" fill="#E5A00D" />
+    <circle cx="438" cy="212" r="4.5" fill="#E5A00D" />
+    
+    <!-- 4-pointed sparkle stars -->
+    <!-- Left star -->
+    <path d="M 72 215 Q 72 203 62 203 Q 72 203 72 191 Q 72 203 82 203 Q 72 203 72 215 Z" fill="#E5A00D" />
+    <!-- Top-right star (larger) -->
+    <path d="M 370 120 Q 370 102 352 102 Q 370 102 370 84 Q 370 102 388 102 Q 370 102 370 120 Z" fill="#E5A00D" />
+    
+    <!-- Crescent Moon -->
+    <path d="M 252 98 C 170 102 125 170 160 270 C 190 350 280 345 375 240 C 290 270 215 220 225 150 C 230 125 240 105 252 98 Z" fill="#E5A00D" />
+
+    <!-- Mountain Ridge System -->
+    <!-- Distant / Shadowed rear slopes -->
+    <polygon points="50,450 180,280 350,450" fill="#0c2338" />
+    <polygon points="250,450 380,310 500,450" fill="#0c2338" />
+
+    <!-- Central Majestic Peak (Main) -->
+    <!-- Left Lit Face -->
+    <polygon points="255,225 120,480 255,500" fill="#184368" />
+    <!-- Right Shaded Face -->
+    <polygon points="255,225 255,500 480,480" fill="#0d2942" />
+
+    <!-- Left Flanking Peak -->
+    <!-- Left lit face -->
+    <polygon points="100,275 10,480 100,500" fill="#1e4e78" />
+    <!-- Right shaded face -->
+    <polygon points="100,275 100,500 190,480" fill="#102f4a" />
+
+    <!-- Right Flanking Peak -->
+    <!-- Left lit face -->
+    <polygon points="400,290 310,480 400,500" fill="#184368" />
+    <!-- Right shaded face -->
+    <polygon points="400,290 400,500 495,480" fill="#0d2942" />
+
+    <!-- Midground Ridge Facets for 3D depth -->
+    <polygon points="255,225 210,360 255,500" fill="#205380" />
+    <polygon points="100,275 70,370 100,500" fill="#153c5e" />
+    <polygon points="400,290 360,390 400,500" fill="#205380" />
+  </g>
+
+  <!-- Circular Outer Border Ring -->
+  <circle cx="250" cy="250" r="240" fill="none" stroke="#0d2840" stroke-width="6" />
+</svg>
