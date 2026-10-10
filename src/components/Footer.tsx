@@ -40,15 +40,8 @@ export const Footer: React.FC = () => {
           </button>
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400 font-mono">
-          <div>
-            © {new Date().getFullYear()} {PORTFOLIO_CONFIG.brand.name}. All rights reserved.
-          </div>
-          <div className="flex items-center gap-4">
-            <span className="text-[#E5A00D]">Cloudflare Pages Ready</span>
-            <span aria-hidden="true">·</span>
-            <span>Static React SPA</span>
-          </div>
+        <div className="pt-8 text-[11px] text-slate-400 font-mono">
+          © {new Date().getFullYear()} {PORTFOLIO_CONFIG.brand.name}
         </div>
       </div>
     </footer>

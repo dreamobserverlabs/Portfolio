@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  Search, 
-  Layers, 
-  Smartphone, 
-  Gamepad2, 
-  ArrowUpRight, 
-  Github, 
-  Globe
+import {
+  Search,
+  Layers,
+  Smartphone,
+  Gamepad2,
+  ArrowUpRight,
+  Globe,
+  Terminal,
 } from 'lucide-react';
 import { PORTFOLIO_CONFIG, ProjectItem } from '../data/portfolioData';
 import { ProjectCardMockup } from './ProjectCardMockup';
@@ -16,7 +16,7 @@ interface ProjectsShowcaseProps {
 }
 
 export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onSelectProject }) => {
-  const [activeCategory, setActiveCategory] = useState<'all' | 'web' | 'mobile' | 'game'>('all');
+  const [activeCategory, setActiveCategory] = useState<'all' | 'web' | 'desktop' | 'mobile' | 'game'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredProjects = useMemo(() => {
@@ -33,22 +33,21 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onSelectProj
   return (
     <section id="projects" className="py-20 border-b border-[#0D416D]/60 bg-[#061320]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <div className="text-xs font-mono font-semibold text-[#E5A00D] uppercase tracking-wider mb-2 flex items-center gap-1.5">
               <Layers className="w-3.5 h-3.5" />
-              <span>Studio Works</span>
+              <span>Projects</span>
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
-              Web GIS, Mobile Applications & Games
+              Web, Desktop, Mobile, and Games
             </h2>
             <p className="mt-2 text-sm text-slate-300 max-w-xl">
-              Pragmatic geospatial implementations: raster streaming, vector CRS transformation, field GIS surveying, and Godot game prototypes.
+              GIS software, remote sensing tools, field applications, and a mobile game.
             </p>
           </div>
 
-          {/* Search Box */}
           <div className="relative min-w-[240px] sm:min-w-[280px]">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
@@ -61,7 +60,6 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onSelectProj
           </div>
         </div>
 
-        {/* Category Filter Tabs */}
         <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#091b2c] rounded-xl border border-[#0D416D] mb-10 w-fit">
           <button
             onClick={() => setActiveCategory('all')}
@@ -82,7 +80,18 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onSelectProj
             }`}
           >
             <Globe className="w-3.5 h-3.5" />
-            <span>Web GIS (4)</span>
+            <span>Web ({PORTFOLIO_CONFIG.projects.filter((p) => p.category === 'web').length})</span>
+          </button>
+          <button
+            onClick={() => setActiveCategory('desktop')}
+            className={`px-4 py-2 text-xs font-semibold rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5 ${
+              activeCategory === 'desktop'
+                ? 'bg-[#E5A00D] text-slate-950 shadow-sm'
+                : 'text-slate-300 hover:text-white'
+            }`}
+          >
+            <Terminal className="w-3.5 h-3.5" />
+            <span>Desktop ({PORTFOLIO_CONFIG.projects.filter((p) => p.category === 'desktop').length})</span>
           </button>
           <button
             onClick={() => setActiveCategory('mobile')}
@@ -93,7 +102,7 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onSelectProj
             }`}
           >
             <Smartphone className="w-3.5 h-3.5" />
-            <span>Mobile (2)</span>
+            <span>Mobile ({PORTFOLIO_CONFIG.projects.filter((p) => p.category === 'mobile').length})</span>
           </button>
           <button
             onClick={() => setActiveCategory('game')}
@@ -104,11 +113,10 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onSelectProj
             }`}
           >
             <Gamepad2 className="w-3.5 h-3.5" />
-            <span>Games (1)</span>
+            <span>Games ({PORTFOLIO_CONFIG.projects.filter((p) => p.category === 'game').length})</span>
           </button>
         </div>
 
-        {/* Projects Grid */}
         {filteredProjects.length === 0 ? (
           <div className="p-12 text-center bg-[#091b2c]/50 rounded-2xl border border-[#0D416D]">
             <p className="text-sm text-slate-400">No projects found matching your search query.</p>
@@ -127,18 +135,15 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onSelectProj
                 className="group bg-[#091b2c] border border-[#0D416D] rounded-2xl overflow-hidden hover:border-[#E5A00D]/70 transition-all duration-200 flex flex-col justify-between shadow-xl"
               >
                 <div>
-                  {/* Visual Mockup Header */}
+
                   <div className="p-3 bg-[#05111c] border-b border-[#0D416D]">
                     <ProjectCardMockup type={project.mockupType} title={project.title} />
                   </div>
 
-                  {/* Card Content */}
                   <div className="p-6">
-                    {/* Unboxed Metadata Line with typographic separators */}
+
                     <div className="flex items-center gap-2 text-xs text-slate-400 font-mono mb-2.5">
                       <span className="text-[#E5A00D] font-semibold">{project.categoryLabel}</span>
-                      <span aria-hidden="true">·</span>
-                      <span>{project.year}</span>
                       <span aria-hidden="true">·</span>
                       <span className="truncate">{project.platform}</span>
                     </div>
@@ -150,7 +155,6 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onSelectProj
                       {project.description}
                     </p>
 
-                    {/* Realistic Key Specs Snippet */}
                     <div className="mt-4 pt-3 border-t border-[#0D416D]/60 flex items-center justify-between text-xs font-mono">
                       <span className="text-slate-400">{project.keySpecs[0].label}:</span>
                       <span className="text-[#E5A00D] font-bold">
@@ -158,7 +162,6 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onSelectProj
                       </span>
                     </div>
 
-                    {/* Unboxed Tech Tags */}
                     <div className="mt-3 pt-2 border-t border-[#0D416D]/40">
                       <div className="flex flex-wrap items-center gap-1.5 text-xs text-slate-400">
                         {project.tags.slice(0, 4).map((tag, tIdx) => (
@@ -174,29 +177,14 @@ export const ProjectsShowcase: React.FC<ProjectsShowcaseProps> = ({ onSelectProj
                   </div>
                 </div>
 
-                {/* Card Action Footer */}
-                <div className="px-6 py-4 bg-[#05111c] border-t border-[#0D416D] flex items-center justify-between">
+                <div className="px-6 py-4 bg-[#05111c] border-t border-[#0D416D]">
                   <button
                     onClick={() => onSelectProject(project)}
                     className="text-xs font-semibold text-[#E5A00D] hover:text-[#f5af19] inline-flex items-center gap-1 transition-colors"
                   >
-                    <span>View Project Details</span>
+                    <span>View details</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </button>
-
-                  <div className="flex items-center gap-2 text-slate-400">
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="p-1.5 hover:text-white transition-colors"
-                        title="Repository / Code"
-                      >
-                        <Github className="w-4 h-4" />
-                      </a>
-                    )}
-                  </div>
                 </div>
               </div>
             ))}

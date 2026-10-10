@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import { 
-  Mail, 
-  MapPin, 
-  Copy, 
-  Check, 
-  Send, 
-  Github, 
-  Linkedin, 
-  Twitter, 
+import {
+  Mail,
+  Copy,
+  Check,
+  Send,
+  Github,
   MessageSquare,
-  Globe
 } from 'lucide-react';
 import { PORTFOLIO_CONFIG } from '../data/portfolioData';
 
@@ -19,9 +15,8 @@ export const ContactSection: React.FC = () => {
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PORTFOLIO_CONFIG.brand.email);
@@ -32,7 +27,10 @@ export const ContactSection: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-    setIsSubmitted(true);
+    const subject = formData.subject || 'DreamObserver';
+    const body = `${formData.message}\n\n${formData.name}\n${formData.email}`;
+    const href = `mailto:${PORTFOLIO_CONFIG.brand.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = href;
   };
 
   return (
@@ -47,19 +45,18 @@ export const ContactSection: React.FC = () => {
             Get in Touch with DreamObserver
           </h2>
           <p className="mt-4 text-sm sm:text-base text-slate-300 leading-relaxed">
-            Interested in geospatial software, Web GIS architectures, mobile spatial apps, or Godot game development? Reach out directly via email or send a message below.
+            Questions about the work can go to email. The form opens your mail app.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Left Column: Direct Contact Info & Socials (5 cols) */}
+
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-[#091b2c] border border-[#0D416D] rounded-2xl p-6 sm:p-7 shadow-xl">
               <h3 className="text-lg font-bold text-white mb-4">
                 Contact Channels
               </h3>
 
-              {/* Email with 1-click copy */}
               <div className="mb-4 p-3.5 bg-[#05111c] rounded-xl border border-[#0D416D] flex items-center justify-between">
                 <div>
                   <div className="text-[11px] font-mono text-[#E5A00D] uppercase">Direct Email</div>
@@ -77,54 +74,27 @@ export const ContactSection: React.FC = () => {
                 </button>
               </div>
 
-              {/* Location */}
-              <div className="mb-6 p-3.5 bg-[#05111c] rounded-xl border border-[#0D416D] flex items-center gap-3 text-xs text-slate-300">
-                <Globe className="w-4 h-4 text-[#E5A00D] shrink-0" />
-                <span>{PORTFOLIO_CONFIG.brand.location}</span>
-              </div>
-
-              {/* Focus Summary */}
               <div className="p-4 bg-[#05111c]/60 rounded-xl border border-[#0D416D]/60 text-xs text-slate-300 space-y-2">
                 <div className="font-mono text-[11px] text-[#E5A00D] uppercase font-semibold">Specialization</div>
                 <p className="leading-relaxed">
-                  Web & Mobile GIS software studio specializing in Next.js, Nest.js, Python geospatial pipelines, React Native mobile spatial surveying, and Godot Engine.
+                  Web and mobile GIS, remote sensing, spatial analysis, desktop tools, mobile games, and other applications.
                 </p>
               </div>
 
-              {/* Social links */}
-              <div className="mt-6 pt-5 border-t border-[#0D416D] flex items-center justify-around text-xs text-slate-300 font-medium">
-                <a 
-                  href={PORTFOLIO_CONFIG.brand.github} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="hover:text-[#E5A00D] flex items-center gap-1.5 transition-colors"
+              <div className="mt-6 pt-5 border-t border-[#0D416D] text-xs text-slate-300 font-medium">
+                <a
+                  href={PORTFOLIO_CONFIG.brand.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-[#E5A00D] inline-flex items-center gap-1.5 transition-colors"
                 >
                   <Github className="w-4 h-4" />
                   <span>GitHub</span>
-                </a>
-                <a 
-                  href={PORTFOLIO_CONFIG.brand.linkedin} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="hover:text-[#E5A00D] flex items-center gap-1.5 transition-colors"
-                >
-                  <Linkedin className="w-4 h-4" />
-                  <span>LinkedIn</span>
-                </a>
-                <a 
-                  href={PORTFOLIO_CONFIG.brand.twitter} 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="hover:text-[#E5A00D] flex items-center gap-1.5 transition-colors"
-                >
-                  <Twitter className="w-4 h-4" />
-                  <span>X / Twitter</span>
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Direct Message Form (7 cols) */}
           <div className="lg:col-span-7">
             <div className="bg-[#091b2c] border border-[#0D416D] rounded-2xl p-6 sm:p-8 shadow-xl">
               <h3 className="text-lg font-bold text-white mb-1.5 flex items-center gap-2">
@@ -132,35 +102,10 @@ export const ContactSection: React.FC = () => {
                 <span>Send a Direct Message</span>
               </h3>
               <p className="text-xs text-slate-300 mb-6">
-                Have a question regarding any of the projects or geospatial frameworks? Drop a message directly.
+                Write the note here. Sending opens your mail app, addressed to DreamObserver.
               </p>
 
-              {isSubmitted ? (
-                <div className="text-center py-12">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mb-4">
-                    <Check className="w-8 h-8" />
-                  </div>
-                  <h4 className="text-lg font-bold text-white mb-2">Message Sent Successfully</h4>
-                  <p className="text-xs sm:text-sm text-slate-300 max-w-sm mx-auto mb-6">
-                    Thank you! Your message has been received. DreamObserver will get back to <strong>{formData.email}</strong> shortly.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      setFormData({
-                        name: '',
-                        email: '',
-                        subject: '',
-                        message: ''
-                      });
-                    }}
-                    className="px-5 py-2 text-xs font-bold text-slate-950 bg-[#E5A00D] hover:bg-[#f5af19] rounded-lg transition-colors"
-                  >
-                    Send Another Message
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs text-slate-300 mb-1.5 font-medium">Your Name *</label>
@@ -169,7 +114,7 @@ export const ContactSection: React.FC = () => {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="Alex Rivera"
+                        placeholder="Your name"
                         className="w-full bg-[#05111c] border border-[#0D416D] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#E5A00D] transition-colors"
                       />
                     </div>
@@ -180,7 +125,7 @@ export const ContactSection: React.FC = () => {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="alex@domain.com"
+                        placeholder="you@email.com"
                         className="w-full bg-[#05111c] border border-[#0D416D] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#E5A00D] transition-colors"
                       />
                     </div>
@@ -211,7 +156,7 @@ export const ContactSection: React.FC = () => {
 
                   <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <span className="text-[11px] font-mono text-slate-400">
-                      Direct response to your inbox
+                      Opens your email app
                     </span>
 
                     <button
@@ -219,11 +164,10 @@ export const ContactSection: React.FC = () => {
                       className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#E5A00D] hover:bg-[#f5af19] text-slate-950 font-bold text-xs rounded-xl transition-colors shadow-lg shadow-[#E5A00D]/20"
                     >
                       <Send className="w-3.5 h-3.5" />
-                      <span>Send Direct Message</span>
+                      <span>Write email</span>
                     </button>
                   </div>
                 </form>
-              )}
             </div>
           </div>
         </div>
